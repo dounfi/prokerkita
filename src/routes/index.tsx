@@ -1,24 +1,50 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useReveal } from "@/components/pk/useReveal";
+import { CaraKerja, Hero, Masalah, Nav } from "@/components/pk/Top";
+import { Validator } from "@/components/pk/Validator";
+import { Repository } from "@/components/pk/Repository";
+import { Faq, Footer, Kontak, StudiKasus, Tentang } from "@/components/pk/Bottom";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "ProkerKita — Validasi Ide Proker KKN Berbasis Preseden" },
+      {
+        name: "description",
+        content:
+          "Cek apakah ide proker KKN kamu pernah dicoba di desa lain, berhasil atau gagal, plus rekomendasi alternatif dan repository laporan KKN.",
+      },
+      { property: "og:title", content: "ProkerKita — Validasi Ide Proker KKN" },
+      {
+        property: "og:description",
+        content:
+          "Sebelum nulis proposal, cek preseden proker KKN dari desa lain: bukti keberhasilan, alasan kegagalan, dan alternatif yang lebih masuk.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const ref = useReveal<HTMLDivElement>();
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div ref={ref} className="min-h-screen bg-cream text-ink">
+      <Nav />
+      <main>
+        <Hero />
+        <Masalah />
+        <CaraKerja />
+        <Validator />
+        <Repository />
+        <StudiKasus />
+        <Tentang />
+        <Faq />
+        <Kontak />
+      </main>
+      <Footer />
     </div>
   );
 }
