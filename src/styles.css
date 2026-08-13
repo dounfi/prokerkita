@@ -203,3 +203,8 @@
   background-image: radial-gradient(color-mix(in oklab, var(--ink) 22%, transparent) 1.5px, transparent 1.6px);
   background-size: 16px 16px;
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
