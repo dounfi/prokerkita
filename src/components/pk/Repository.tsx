@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { PinIcon, SectionLabel, Tag } from "./Decor";
 
 type Report = {
@@ -110,6 +112,45 @@ export function Repository() {
   const [reports, setReports] = useState(seed);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("Semua");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // Floating ambient blue blobs animation (Noda Biru Samar Melayang)
+      gsap.to(".bg-blue-blob-1", {
+        x: 70,
+        y: 45,
+        scale: 1.15,
+        duration: 9,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".bg-blue-blob-2", {
+        x: -80,
+        y: 60,
+        scale: 1.2,
+        duration: 11,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1,
+      });
+
+      gsap.to(".bg-blue-blob-3", {
+        x: 50,
+        y: -40,
+        scale: 1.1,
+        duration: 8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 0.5,
+      });
+    },
+    { scope: containerRef },
+  );
 
   // mock upload flow
   const [fileName, setFileName] = useState("");
@@ -156,30 +197,41 @@ export function Repository() {
   };
 
   return (
-    <section id="repository" className="border-b border-ink/10 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
+    <section
+      id="repository"
+      ref={containerRef}
+      className="relative overflow-hidden bg-white border-b border-ink/10 pb-24"
+    >
+      {/* Floating Soft Ambient Blue Gradient Blobs (Noda Biru Samar Melayang) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="bg-blue-blob-1 absolute -top-24 -left-20 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-[#38bdf8] via-[#0284c7] to-[#7dd3fc] opacity-20 blur-[120px]" />
+        <div className="bg-blue-blob-2 absolute top-1/3 -right-24 w-[650px] h-[650px] rounded-full bg-gradient-to-tr from-[#bae6fd] via-[#38bdf8] to-[#0369a1] opacity-15 blur-[140px]" />
+        <div className="bg-blue-blob-3 absolute bottom-10 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#e0f2fe] via-[#7dd3fc] to-[#38bdf8] opacity-25 blur-[110px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20 z-10">
         <SectionLabel>Repository laporan</SectionLabel>
-        <h2 className="max-w-2xl font-display text-3xl font-extrabold sm:text-5xl" data-reveal>
+        <h2 className="max-w-2xl font-display text-3xl font-extrabold sm:text-5xl text-ink">
           Laporan KKN yang bisa dibaca, bukan cuma diarsipkan.
         </h2>
 
-        <div
-          className="mt-8 grid gap-3 rounded-2xl border border-ink/10 bg-white/80 backdrop-blur-sm p-4 md:grid-cols-[minmax(0,1fr)_auto]"
-          data-reveal
-        >
+        {/* Search & Filter Bar */}
+        <div className="mt-8 grid gap-3 rounded-2xl border border-ink/10 bg-white/90 backdrop-blur-md p-4 shadow-sm md:grid-cols-[minmax(0,1fr)_auto]">
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Cari judul, desa, atau kampus"
-            className="w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none placeholder:text-ink/40"
+            className="w-full rounded-xl border border-ink/10 bg-[#fcfbfa] px-4 py-3 text-sm outline-none placeholder:text-ink/40 focus:border-[#0284c7] focus:bg-white transition-colors"
           />
           <div className="flex flex-wrap gap-2">
             {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setCat(c)}
-                className={`rounded-full border border-ink/10 px-3 py-2 text-xs font-bold transition-colors ${
-                  cat === c ? "bg-ink text-cream" : "bg-white hover:bg-sun"
+                className={`rounded-full border border-ink/10 px-3.5 py-2 text-xs font-bold transition-all ${
+                  cat === c
+                    ? "bg-[#0284c7] text-white shadow-sm"
+                    : "bg-white text-ink/75 hover:bg-slate-50"
                 }`}
               >
                 {c}
@@ -188,31 +240,34 @@ export function Repository() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {/* Original Clean Report Cards Grid */}
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((r) => (
             <article
               key={r.id}
-              className="flex flex-col rounded-2xl border border-ink/10 bg-white/80 backdrop-blur-sm p-5 transition-transform pk-hard-sm hover:-translate-y-1"
+              className="flex flex-col justify-between rounded-2xl border border-ink/10 bg-white/90 backdrop-blur-md p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="min-w-0 font-display text-lg font-bold">{r.title}</h3>
-                <span className="shrink-0 rounded-md border border-ink/10 bg-white px-2 py-0.5 text-xs font-bold">
-                  {r.year}
-                </span>
-              </div>
-              <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/70">
-                <PinIcon className="h-4 w-4 shrink-0" /> {r.location}
-              </p>
-              <p className="text-sm text-ink/60">{r.campus}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Tag tone={r.verified ? "leaf" : "sun"}>
-                  {r.verified ? "Terverifikasi" : "Kontribusi Komunitas"}
-                </Tag>
-                <Tag
-                  tone={r.outcome === "Gagal" ? "clay" : r.outcome === "Berhasil" ? "sky" : "ink"}
-                >
-                  {r.outcome}
-                </Tag>
+              <div>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="min-w-0 font-display text-lg font-bold text-ink">{r.title}</h3>
+                  <span className="shrink-0 rounded-md border border-ink/10 bg-white px-2 py-0.5 text-xs font-bold text-ink/70">
+                    {r.year}
+                  </span>
+                </div>
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/70">
+                  <PinIcon className="h-4 w-4 shrink-0 text-[#0284c7]" /> {r.location}
+                </p>
+                <p className="text-sm text-ink/60">{r.campus}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Tag tone={r.verified ? "leaf" : "sun"}>
+                    {r.verified ? "Terverifikasi" : "Kontribusi Komunitas"}
+                  </Tag>
+                  <Tag
+                    tone={r.outcome === "Gagal" ? "clay" : r.outcome === "Berhasil" ? "sky" : "ink"}
+                  >
+                    {r.outcome}
+                  </Tag>
+                </div>
               </div>
               <button className="mt-4 self-start text-sm font-bold text-clay hover:underline underline-offset-4 transition-all hover:text-clay/80">
                 Baca ringkasannya
@@ -220,16 +275,14 @@ export function Repository() {
             </article>
           ))}
           {list.length === 0 && (
-            <p className="text-sm text-ink/60">Belum ada laporan yang cocok dengan pencarianmu.</p>
+            <p className="text-sm text-ink/60 col-span-full">Belum ada laporan yang cocok dengan pencarianmu.</p>
           )}
         </div>
 
-        <div
-          className="mt-10 grid gap-6 rounded-2xl border border-ink/10 bg-sun/30 p-6 md:grid-cols-[1fr_1.1fr]"
-          data-reveal
-        >
+        {/* Original Upload Box */}
+        <div className="mt-10 grid gap-6 rounded-2xl border border-ink/10 bg-sun/30 p-6 md:grid-cols-[1fr_1.1fr]">
           <div>
-            <h3 className="font-display text-2xl font-extrabold">Upload laporan kelompokmu</h3>
+            <h3 className="font-display text-2xl font-extrabold text-ink">Upload laporan kelompokmu</h3>
             <p className="mt-2 text-sm text-ink/75">
               Kategori dideteksi otomatis dari judul, tapi kamu yang menentukan akhirnya. Demo ini
               gak beneran ngirim file ke mana-mana.
@@ -258,7 +311,7 @@ export function Repository() {
               </p>
             ) : (
               <div className="space-y-4">
-                <p className="text-sm font-bold break-all">{fileName}</p>
+                <p className="text-sm font-bold break-all text-ink">{fileName}</p>
                 <div className="rounded-xl border border-ink/10 bg-white/80 backdrop-blur-sm p-4">
                   <p className="text-xs font-bold tracking-[0.2em] uppercase text-ink/60">
                     Kategori terdeteksi AI

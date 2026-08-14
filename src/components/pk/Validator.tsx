@@ -273,7 +273,7 @@ export function Validator() {
             </div>
           </form>
 
-          <div>
+          <div data-reveal="right">
             {!result ? (
               <div className="grid h-full min-h-72 place-items-center rounded-2xl border-2 border-dashed border-ink/20/40 p-8 text-center">
                 <div>

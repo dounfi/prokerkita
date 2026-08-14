@@ -27,10 +27,10 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
           animate(
             el,
             { opacity: 1, transform: "translate(0px, 0px) scale(1) rotate(0deg)" },
-            { duration: 0.8, type: "spring", bounce: 0.3 },
+            { duration: 0.7, type: "spring", bounce: 0.2 },
           );
         },
-        { margin: "-12% 0px" },
+        { margin: "0px 0px -40px 0px" },
       );
     });
 
@@ -49,10 +49,10 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
           animate(
             children,
             { opacity: 1, transform: "translate(0px, 0px)" },
-            { duration: 0.6, delay: stagger(0.12), type: "spring", bounce: 0.25 },
+            { duration: 0.6, delay: stagger(0.1), type: "spring", bounce: 0.2 },
           );
         },
-        { margin: "-10% 0px" },
+        { margin: "0px 0px -40px 0px" },
       );
     });
   }, []);

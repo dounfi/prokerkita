@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useReveal } from "@/components/pk/useReveal";
 import { CaraKerja, Hero, Masalah, Nav } from "@/components/pk/Top";
 import { Validator } from "@/components/pk/Validator";
-import { Repository } from "@/components/pk/Repository";
 import { Faq, Footer, Kontak, StudiKasus, Tentang } from "@/components/pk/Bottom";
 
 export const Route = createFileRoute("/")({
@@ -38,7 +37,6 @@ function Index() {
         <Masalah />
         <CaraKerja />
         <Validator />
-        <Repository />
         <StudiKasus />
         <Tentang />
         <Faq />
