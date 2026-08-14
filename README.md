@@ -42,15 +42,6 @@ Kontak/Kolaborasi (ajak kampus lain kontribusi laporan)
 
 Responsif penuh, mobile-first check.
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/bcf02807-4707-4171-97ff-e3a2c2394ddf).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
