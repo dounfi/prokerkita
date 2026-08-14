@@ -1,62 +1,60 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-let registered = false;
+import { animate, inView, stagger } from "framer-motion";
 
 export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
 
   useEffect(() => {
-    if (!registered) {
-      gsap.registerPlugin(ScrollTrigger);
-      registered = true;
-    }
     const root = ref.current;
     if (!root) return;
 
-    const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-      items.forEach((el) => {
-        const dir = el.dataset["reveal"];
-        gsap.from(el, {
-          opacity: 0,
-          y: dir === "up" || dir === "" || !dir ? 36 : 0,
-          x: dir === "left" ? -40 : dir === "right" ? 40 : 0,
-          scale: dir === "pop" ? 0.9 : 1,
-          rotate: dir === "tilt" ? -3 : 0,
-          duration: 0.75,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
-        });
+    // Handle individual reveal elements
+    const revealElements = root.querySelectorAll<HTMLElement>("[data-reveal]");
+    revealElements.forEach((el) => {
+      const dir = el.dataset["reveal"];
+      const y = dir === "up" || dir === "" || !dir ? 40 : 0;
+      const x = dir === "left" ? -50 : dir === "right" ? 50 : 0;
+      const scale = dir === "pop" ? 0.9 : 1;
+      const rotate = dir === "tilt" ? -3 : 0;
+
+      // Initial state
+      el.style.opacity = "0";
+      el.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`;
+
+      inView(
+        el,
+        () => {
+          animate(
+            el,
+            { opacity: 1, transform: "translate(0px, 0px) scale(1) rotate(0deg)" },
+            { duration: 0.8, type: "spring", bounce: 0.3 },
+          );
+        },
+        { margin: "-12% 0px" },
+      );
+    });
+
+    // Handle staggered group elements
+    const staggerGroups = root.querySelectorAll<HTMLElement>("[data-stagger]");
+    staggerGroups.forEach((group) => {
+      const children = Array.from(group.children) as HTMLElement[];
+      children.forEach((child) => {
+        child.style.opacity = "0";
+        child.style.transform = "translate(0px, 30px)";
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((group) => {
-        gsap.from(group.children, {
-          opacity: 0,
-          y: 28,
-          duration: 0.6,
-          ease: "power3.out",
-          stagger: 0.09,
-          scrollTrigger: { trigger: group, start: "top 85%" },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
-        const amount = Number(el.dataset["parallax"] || 60);
-        gsap.to(el, {
-          y: -amount,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true },
-        });
-      });
-    }, root);
-
-    return () => ctx.revert();
+      inView(
+        group,
+        () => {
+          animate(
+            children,
+            { opacity: 1, transform: "translate(0px, 0px)" },
+            { duration: 0.6, delay: stagger(0.12), type: "spring", bounce: 0.25 },
+          );
+        },
+        { margin: "-10% 0px" },
+      );
+    });
   }, []);
 
   return ref;

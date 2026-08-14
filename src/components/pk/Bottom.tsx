@@ -15,7 +15,10 @@ const after = [
 
 export function StudiKasus() {
   return (
-    <section id="studi-kasus" className="relative overflow-hidden border-b-2 border-ink bg-ink text-cream">
+    <section
+      id="studi-kasus"
+      className="relative overflow-hidden border-b border-ink/10 bg-ink text-cream"
+    >
       <ContourLines className="absolute inset-x-0 top-10 w-full text-cream/15" />
       <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
         <div className="mb-4 flex items-center gap-3" data-reveal="left">
@@ -23,14 +26,14 @@ export function StudiKasus() {
           <span className="font-display text-xs font-bold tracking-[0.25em] uppercase">
             Studi kasus
           </span>
-          <span className="h-px flex-1 bg-cream/25" />
+          <span className="h-px flex-1 bg-white/20" />
         </div>
         <h2 className="max-w-3xl font-display text-3xl font-extrabold sm:text-5xl" data-reveal>
           Desa Tirtomulyo: dari ide yang udah gagal, ke program yang masih jalan.
         </h2>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border-2 border-cream/40 p-6" data-reveal="left">
+          <div className="rounded-2xl border border-white/40 p-6" data-reveal="left">
             <Tag tone="clay">Sebelum</Tag>
             <ul className="mt-4 space-y-4">
               {before.map((b) => (
@@ -41,7 +44,10 @@ export function StudiKasus() {
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border-2 border-ink bg-cream p-6 text-ink pk-hard" data-reveal="right">
+          <div
+            className="rounded-2xl border border-ink/10 bg-white/80 backdrop-blur-sm p-6 text-ink pk-hard"
+            data-reveal="right"
+          >
             <Tag tone="leaf">Sesudah</Tag>
             <ul className="mt-4 space-y-4">
               {after.map((b) => (
@@ -60,7 +66,7 @@ export function StudiKasus() {
             { k: "Rp 3,1 jt", v: "budget dialihkan ke pelatihan warga" },
             { k: "14 bulan", v: "program masih jalan tanpa mahasiswa" },
           ].map((s) => (
-            <div key={s.k} className="rounded-xl border-2 border-cream/40 p-5">
+            <div key={s.k} className="rounded-xl border border-white/40 p-5">
               <p className="font-display text-2xl font-extrabold text-sun">{s.k}</p>
               <p className="mt-1 text-sm text-cream/75">{s.v}</p>
             </div>
@@ -73,7 +79,7 @@ export function StudiKasus() {
 
 export function Tentang() {
   return (
-    <section id="tentang" className="border-b-2 border-ink bg-cream">
+    <section id="tentang" className="border-b border-ink/10 bg-white/80 backdrop-blur-sm">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
         <SectionLabel>Tentang kami</SectionLabel>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
@@ -103,8 +109,8 @@ export function Tentang() {
               { n: "Rima", r: "Desain & penulisan" },
               { n: "Yoga", r: "Kemitraan kampus" },
             ].map((p) => (
-              <div key={p.n} className="rounded-2xl border-2 border-ink bg-card p-5 pk-hard-sm">
-                <span className="grid h-10 w-10 place-items-center rounded-lg border-2 border-ink bg-sun">
+              <div key={p.n} className="rounded-2xl border border-ink/10 bg-white p-5 pk-hard-sm">
+                <span className="grid h-10 w-10 place-items-center rounded-lg border border-ink/10 bg-sun">
                   <PinIcon className="h-5 w-5" />
                 </span>
                 <p className="mt-3 font-display text-lg font-bold">{p.n}</p>
@@ -121,7 +127,7 @@ export function Tentang() {
 const faqs = [
   {
     q: "Datanya dari mana?",
-    a: "Dari laporan akhir KKN yang dibagikan kampus dan yang diunggah pengguna. Yang sumbernya bisa dicek kami tandai \"Terverifikasi\"; sisanya \"Kontribusi Komunitas\". Di demo ini semuanya masih data contoh.",
+    a: 'Dari laporan akhir KKN yang dibagikan kampus dan yang diunggah pengguna. Yang sumbernya bisa dicek kami tandai "Terverifikasi"; sisanya "Kontribusi Komunitas". Di demo ini semuanya masih data contoh.',
   },
   {
     q: "Skor akurasinya dihitung gimana?",
@@ -133,14 +139,14 @@ const faqs = [
   },
   {
     q: "Data dari user bisa dipercaya gak?",
-    a: "Belum tentu, dan kami gak pura-pura sebaliknya. Laporan komunitas ditandai jelas, bisa dilaporkan kalau menyesatkan, dan baru jadi \"Terverifikasi\" kalau ada dokumen resmi dari kampus atau pemerintah desa.",
+    a: 'Belum tentu, dan kami gak pura-pura sebaliknya. Laporan komunitas ditandai jelas, bisa dilaporkan kalau menyesatkan, dan baru jadi "Terverifikasi" kalau ada dokumen resmi dari kampus atau pemerintah desa.',
   },
 ];
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="border-b-2 border-ink bg-card">
+    <section id="faq" className="border-b border-ink/10 bg-white">
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 md:py-24">
         <SectionLabel>Pertanyaan yang sering muncul</SectionLabel>
         <h2 className="font-display text-3xl font-extrabold sm:text-5xl" data-reveal>
@@ -148,14 +154,17 @@ export function Faq() {
         </h2>
         <div className="mt-10 space-y-3" data-stagger>
           {faqs.map((f, i) => (
-            <div key={f.q} className="rounded-2xl border-2 border-ink bg-cream">
+            <div
+              key={f.q}
+              className="rounded-2xl border border-ink/10 bg-white/80 backdrop-blur-sm"
+            >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
               >
                 <span className="font-display text-lg font-bold">{f.q}</span>
                 <span
-                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-ink font-bold transition-transform ${
+                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-ink/10 font-bold transition-transform ${
                     open === i ? "rotate-45 bg-clay text-clay-foreground" : "bg-sun"
                   }`}
                 >
@@ -198,7 +207,7 @@ export function Kontak() {
             e.preventDefault();
             setSent(true);
           }}
-          className="rounded-2xl border-2 border-ink bg-cream p-6 text-ink pk-hard"
+          className="rounded-2xl border border-ink/10 bg-white/80 backdrop-blur-sm p-6 text-ink pk-hard"
           data-reveal="right"
         >
           {sent ? (
@@ -212,7 +221,7 @@ export function Kontak() {
                 <button
                   type="button"
                   onClick={() => setSent(false)}
-                  className="mt-4 rounded-full border-2 border-ink bg-sun px-4 py-2 text-sm font-bold"
+                  className="btn-pionir btn-pionir-yellow mt-4 px-4 py-2 text-sm"
                 >
                   Tulis lagi
                 </button>
@@ -231,7 +240,7 @@ export function Kontak() {
                   <input
                     required
                     placeholder={f.p}
-                    className="w-full rounded-xl border-2 border-ink bg-card px-4 py-3 text-sm outline-none placeholder:text-ink/40"
+                    className="w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none placeholder:text-ink/40"
                   />
                 </label>
               ))}
@@ -240,13 +249,10 @@ export function Kontak() {
                 <textarea
                   rows={3}
                   placeholder="Contoh: kami punya 40 laporan KKN 2021–2025"
-                  className="w-full rounded-xl border-2 border-ink bg-card px-4 py-3 text-sm outline-none placeholder:text-ink/40"
+                  className="w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none placeholder:text-ink/40"
                 />
               </label>
-              <button
-                type="submit"
-                className="w-full rounded-full border-2 border-ink bg-clay px-6 py-3 font-bold text-clay-foreground pk-hard-sm"
-              >
+              <button type="submit" className="btn-pionir btn-pionir-orange w-full px-6 py-3">
                 Kirim Ajakan Kolaborasi
               </button>
             </div>
@@ -259,7 +265,7 @@ export function Kontak() {
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-ink bg-ink text-cream">
+    <footer className="border-t border-ink/10 bg-ink text-cream">
       <div className="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:px-6 md:grid-cols-[1fr_auto] md:items-center">
         <div className="flex min-w-0 items-center gap-2">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border-2 border-cream/60 bg-leaf">

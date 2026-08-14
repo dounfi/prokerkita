@@ -103,7 +103,7 @@ const scenarios: Record<Outcome, { form: Form; result: Result }> = {
       evidence: [
         "Titik air terdekat menurut data desa: 3 mata air, 1 kering saat Agustus.",
         "Saran: catat kondisi tiap titik air tiap 2 minggu supaya datanya kepakai kelompok berikutnya.",
-        "Laporanmu bakal ditandai \"Preseden Pertama\" di repository.",
+        'Laporanmu bakal ditandai "Preseden Pertama" di repository.',
       ],
     },
   },
@@ -132,12 +132,15 @@ function ScoreBar({ value, label, tone }: { value: number; label: string; tone: 
       onUpdate: () => setShown(Math.round(obj.v)),
     });
     if (bar.current) {
-      gsap.fromTo(bar.current, { width: "0%" }, { width: `${value}%`, duration: 1.1, ease: "power2.out" });
+      gsap.fromTo(
+        bar.current,
+        { width: "0%" },
+        { width: `${value}%`, duration: 1.1, ease: "power2.out" },
+      );
     }
     return () => {
       tween.kill();
     };
-
   }, [value]);
 
   return (
@@ -146,7 +149,7 @@ function ScoreBar({ value, label, tone }: { value: number; label: string; tone: 
         <span className="text-sm font-semibold text-ink/70">{label}</span>
         <span className="font-display text-3xl font-extrabold">{shown}%</span>
       </div>
-      <div className="mt-2 h-4 overflow-hidden rounded-full border-2 border-ink bg-cream">
+      <div className="mt-2 h-4 overflow-hidden rounded-full border border-ink/10 bg-white/80 backdrop-blur-sm">
         <div ref={bar} className={`h-full ${tone}`} style={{ width: 0 }} />
       </div>
     </div>
@@ -186,10 +189,10 @@ export function Validator() {
   };
 
   const field =
-    "w-full rounded-xl border-2 border-ink bg-card px-4 py-3 text-sm outline-none transition-shadow placeholder:text-ink/40 focus:pk-hard-sm";
+    "w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none transition-shadow placeholder:text-ink/40 focus:pk-hard-sm";
 
   return (
-    <section id="validasi" className="border-b-2 border-ink bg-cream">
+    <section id="validasi" className="border-b border-ink/10 bg-white/80 backdrop-blur-sm">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
         <SectionLabel>Form validasi</SectionLabel>
         <div className="grid gap-4 md:grid-cols-[1.2fr_auto] md:items-end">
@@ -202,7 +205,11 @@ export function Validator() {
         </div>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-          <form onSubmit={submit} className="rounded-2xl border-2 border-ink bg-card p-6 pk-hard" data-reveal="left">
+          <form
+            onSubmit={submit}
+            className="rounded-2xl border border-ink/10 bg-white p-6 pk-hard"
+            data-reveal="left"
+          >
             <div className="space-y-4">
               <label className="block">
                 <span className="mb-1.5 block text-sm font-bold">Ide proker</span>
@@ -243,10 +250,7 @@ export function Validator() {
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="mt-6 w-full rounded-full border-2 border-ink bg-leaf px-6 py-3 font-bold text-leaf-foreground transition-transform pk-hard-sm hover:-translate-y-0.5"
-            >
+            <button type="submit" className="btn-pionir btn-pionir-blue mt-6 w-full px-6 py-3">
               Cek Proker Ini
             </button>
 
@@ -260,7 +264,7 @@ export function Validator() {
                     key={o}
                     type="button"
                     onClick={() => loadScenario(o)}
-                    className="rounded-full border-2 border-ink bg-cream px-4 py-2 text-sm font-semibold transition-transform hover:-translate-y-0.5 hover:bg-sun"
+                    className="btn-pionir btn-pionir-white px-4 py-2 text-sm"
                   >
                     Skenario {o === "pionir" ? "Pionir" : o === "gagal" ? "Gagal" : "Berhasil"}
                   </button>
@@ -271,7 +275,7 @@ export function Validator() {
 
           <div>
             {!result ? (
-              <div className="grid h-full min-h-72 place-items-center rounded-2xl border-2 border-dashed border-ink/40 p-8 text-center">
+              <div className="grid h-full min-h-72 place-items-center rounded-2xl border-2 border-dashed border-ink/20/40 p-8 text-center">
                 <div>
                   <PinIcon className="mx-auto h-10 w-10 text-ink/40" />
                   <p className="mt-3 font-display text-lg font-bold">Hasil muncul di sini</p>
@@ -294,7 +298,7 @@ export function Validator() {
                 <h3 className="mt-4 font-display text-2xl font-extrabold">{result.headline}</h3>
                 <p className="mt-2 text-sm text-ink/75">{result.summary}</p>
 
-                <div className="mt-5 rounded-xl border-2 border-ink bg-card p-4">
+                <div className="mt-5 rounded-xl border border-ink/10 bg-white p-4">
                   <ScoreBar
                     value={result.score}
                     label={result.scoreLabel}
@@ -309,7 +313,10 @@ export function Validator() {
 
                 <dl className="mt-4 grid gap-3 sm:grid-cols-2">
                   {result.points.map((p) => (
-                    <div key={p.label} className="rounded-xl border-2 border-ink/20 bg-card px-4 py-3">
+                    <div
+                      key={p.label}
+                      className="rounded-xl border border-ink/10/20 bg-white px-4 py-3"
+                    >
                       <dt className="text-xs font-semibold tracking-wide uppercase text-ink/55">
                         {p.label}
                       </dt>
@@ -323,12 +330,12 @@ export function Validator() {
                     <p className="font-display font-bold">Alternatif yang lebih masuk</p>
                     <ul className="mt-3 space-y-3">
                       {result.alternatives.map((a) => (
-                        <li key={a.title} className="rounded-xl border-2 border-ink bg-card p-4">
+                        <li key={a.title} className="rounded-xl border border-ink/10 bg-white p-4">
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <p className="font-semibold">{a.title}</p>
                             <span className="font-display text-sm font-bold">{a.score}%</span>
                           </div>
-                          <div className="mt-2 h-2.5 overflow-hidden rounded-full border-2 border-ink bg-cream">
+                          <div className="mt-2 h-2.5 overflow-hidden rounded-full border border-ink/10 bg-white/80 backdrop-blur-sm">
                             <div className="h-full bg-sun" style={{ width: `${a.score}%` }} />
                           </div>
                           <p className="mt-2 text-sm text-ink/70">{a.why}</p>
