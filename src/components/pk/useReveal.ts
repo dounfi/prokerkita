@@ -8,7 +8,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
     const root = ref.current;
     if (!root) return;
 
-    // Handle individual reveal elements
+    // Atur elemen yang muncul satuan
     const revealElements = root.querySelectorAll<HTMLElement>("[data-reveal]");
     revealElements.forEach((el) => {
       const dir = el.dataset["reveal"];
@@ -17,7 +17,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       const scale = dir === "pop" ? 0.9 : 1;
       const rotate = dir === "tilt" ? -3 : 0;
 
-      // Initial state
+      // State awal
       el.style.opacity = "0";
       el.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`;
 
@@ -34,7 +34,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       );
     });
 
-    // Handle staggered group elements
+    // Atur elemen muncul berurutan
     const staggerGroups = root.querySelectorAll<HTMLElement>("[data-stagger]");
     staggerGroups.forEach((group) => {
       const children = Array.from(group.children) as HTMLElement[];

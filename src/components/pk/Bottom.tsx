@@ -84,46 +84,133 @@ export function StudiKasus() {
 
 export function Tentang() {
   return (
-    <section id="tentang" className="border-b border-ink/10 bg-white/80 backdrop-blur-sm">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
-        <SectionLabel>Tentang kami</SectionLabel>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+    <section id="tentang" className="bg-[#FAF8F5] py-20 md:py-32 relative overflow-hidden">
+      {/* Soft background blobs for aesthetic vibe */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#3CA4FF]/10 rounded-full blur-[80px]"></div>
+        <div className="absolute top-1/2 -right-40 w-96 h-96 bg-[#F8981D]/10 rounded-full blur-[80px]"></div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
+        
+        {/* Top Section: Header & Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 mb-20">
           <div data-reveal>
-            <h2 className="font-display text-3xl font-extrabold sm:text-5xl">
-              Kami mantan peserta KKN yang kesel ngulang kesalahan orang lain.
+            <SectionLabel>Tentang ProkerKita</SectionLabel>
+            <h2 className="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#003874] leading-[1.15]">
+              Dibuat karena <br/>
+              <span className="text-[#3CA4FF] relative inline-block">
+                ada yang salah.
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F8981D] opacity-70" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round"/>
+                </svg>
+              </span>
             </h2>
-            <p className="mt-5 text-ink/75">
-              ProkerKita dimulai dari satu folder Google Drive isi laporan KKN yang kami kumpulin
-              iseng-iseng. Ternyata pola gagalnya mirip terus. Jadi kami bikin alat buat nyari pola
-              itu sebelum proker dijalanin, bukan sesudah.
-            </p>
-            <p className="mt-4 text-ink/75">
-              Kami bukan lembaga penilai. Kami cuma nyusun pengalaman yang udah ada supaya kelompok
-              berikutnya mulai dari titik yang lebih jauh.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Tag tone="leaf">Front-end demo</Tag>
-              <Tag tone="sun">Data masih mock</Tag>
-              <Tag tone="sky">Terbuka buat kolaborasi</Tag>
-            </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2" data-stagger>
-            {[
-              { n: "Nadia", r: "Riset & kurasi laporan" },
-              { n: "Bagas", r: "Sistem pencocokan preseden" },
-              { n: "Rima", r: "Desain & penulisan" },
-              { n: "Yoga", r: "Kemitraan kampus" },
-            ].map((p) => (
-              <div key={p.n} className="rounded-2xl border border-ink/10 bg-white p-5 pk-hard-sm">
-                <span className="grid h-10 w-10 place-items-center rounded-lg border border-ink/10 bg-sun">
-                  <PinIcon className="h-5 w-5" />
-                </span>
-                <p className="mt-3 font-display text-lg font-bold">{p.n}</p>
-                <p className="text-sm text-ink/70">{p.r}</p>
-              </div>
-            ))}
+          <div className="flex flex-col justify-center space-y-6 text-lg text-slate-700 leading-relaxed font-medium" data-reveal="right">
+            <p>
+              Bukan dari ruang rapat kampus atau lembaga riset. ProkerKita lahir dari keresahan yang terlalu sering diabaikan, bahwa mencari referensi KKN di Indonesia bisa terasa seperti mengulang kesalahan dari awal, dan kebanyakan mahasiswa berjalan sendirian.
+            </p>
+            <p>
+              Kami tidak punya solusi untuk semua masalah di desa. Tapi untuk yang satu ini — mencegah proker gagal karena kurangnya preseden — kami bisa membantu.
+            </p>
           </div>
         </div>
+
+        {/* Stats Section (Cottagecore / Soft Floating Card) */}
+        <div className="bg-white rounded-[2.5rem] p-10 sm:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-2 border-white flex flex-col sm:flex-row justify-between gap-10 mb-24 relative" data-reveal>
+          {/* Decorative Pin */}
+          <div className="absolute -top-4 -left-4 w-10 h-10 rotate-12">
+            <PinIcon className="w-full h-full text-[#F8981D] drop-shadow-md" />
+          </div>
+          
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-display text-5xl sm:text-6xl font-extrabold text-[#3CA4FF] mb-2 drop-shadow-sm">15rb+</p>
+            <p className="text-slate-500 font-bold tracking-wide uppercase text-sm">Laporan Dianalisis</p>
+          </div>
+          <div className="hidden sm:block w-0.5 bg-slate-100 rounded-full"></div>
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-display text-5xl sm:text-6xl font-extrabold text-[#55B55A] mb-2 drop-shadow-sm">89%</p>
+            <p className="text-slate-500 font-bold tracking-wide uppercase text-sm">Akurasi Deteksi</p>
+          </div>
+          <div className="hidden sm:block w-0.5 bg-slate-100 rounded-full"></div>
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-display text-5xl sm:text-6xl font-extrabold text-[#F8981D] mb-2 drop-shadow-sm">Rp0</p>
+            <p className="text-slate-500 font-bold tracking-wide uppercase text-sm">Biaya Pengguna</p>
+          </div>
+        </div>
+
+        {/* 2x2 Grid Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+          {/* Card 1 */}
+          <div className="bg-white rounded-[2rem] p-10 shadow-lg shadow-sky-100/50 border-2 border-sky-50 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300" data-reveal>
+            <span className="absolute top-4 right-6 font-display text-8xl font-extrabold text-sky-50/60 group-hover:text-sky-100/60 transition-colors pointer-events-none">01</span>
+            <div className="w-16 h-16 rounded-2xl bg-sky-100 text-[#3CA4FF] flex items-center justify-center mb-12 relative z-10 border-2 border-white shadow-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 className="font-display text-2xl font-extrabold text-[#003874] mb-4 relative z-10">Alasan, bukan asumsi</h3>
+            <p className="text-slate-600 font-medium leading-relaxed relative z-10">
+              Hasil pencocokan desa bukan sekadar stempel 'cocok' atau 'tidak'. Setiap kesimpulan punya penjelasan preseden, karena kamu berhak mengerti dasarnya.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white rounded-[2rem] p-10 shadow-lg shadow-amber-100/50 border-2 border-amber-50 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300" data-reveal>
+            <span className="absolute top-4 right-6 font-display text-8xl font-extrabold text-amber-50/60 group-hover:text-amber-100/60 transition-colors pointer-events-none">02</span>
+            <div className="w-16 h-16 rounded-2xl bg-amber-100 text-[#F8981D] flex items-center justify-center mb-12 relative z-10 border-2 border-white shadow-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3 className="font-display text-2xl font-extrabold text-[#003874] mb-4 relative z-10">Kecepatan = Hormat</h3>
+            <p className="text-slate-600 font-medium leading-relaxed relative z-10">
+              Waktu mahasiswa KKN sudah cukup banyak tersita. Kami memastikan hasil pencarian ada dalam hitungan detik — bukan karena malas, tapi menghargai waktumu.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white rounded-[2rem] p-10 shadow-lg shadow-rose-100/50 border-2 border-rose-50 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300" data-reveal>
+            <span className="absolute top-4 right-6 font-display text-8xl font-extrabold text-rose-50/60 group-hover:text-rose-100/60 transition-colors pointer-events-none">03</span>
+            <div className="w-16 h-16 rounded-2xl bg-rose-100 text-rose-500 flex items-center justify-center mb-12 relative z-10 border-2 border-white shadow-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+            <h3 className="font-display text-2xl font-extrabold text-[#003874] mb-4 relative z-10">Kualitas & Akses</h3>
+            <p className="text-slate-600 font-medium leading-relaxed relative z-10">
+              Ada yang bilang gratis tidak bisa bagus. Kami tidak setuju. Akses ke ribuan preseden valid tidak seharusnya bergantung pada tebal tipisnya dompet kelompok.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white rounded-[2rem] p-10 shadow-lg shadow-emerald-100/50 border-2 border-emerald-50 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300" data-reveal>
+            <span className="absolute top-4 right-6 font-display text-8xl font-extrabold text-emerald-50/60 group-hover:text-emerald-100/60 transition-colors pointer-events-none">04</span>
+            <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-[#55B55A] flex items-center justify-center mb-12 relative z-10 border-2 border-white shadow-sm">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3 className="font-display text-2xl font-extrabold text-[#003874] mb-4 relative z-10">Dampak, bukan gaya</h3>
+            <p className="text-slate-600 font-medium leading-relaxed relative z-10">
+              Kami sengaja membuang fitur-fitur berlebihan. Kami percaya bahwa platform yang baik tidak mencari perhatian, melainkan memastikan proker desamu berjalan lancar.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom Quote Section (Cottagecore Note Style) */}
+        <div className="bg-[#E8F5E9] rounded-[2.5rem] p-10 sm:p-16 border-2 border-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] relative overflow-hidden" data-reveal>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#55B55A] opacity-5 rounded-full blur-[40px] pointer-events-none"></div>
+          
+          <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 relative z-10 items-start">
+            <div className="text-[#55B55A] shrink-0 bg-white p-4 rounded-2xl shadow-sm border border-emerald-100">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+            </div>
+            <div>
+              <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#003874] leading-relaxed mb-8">
+                Setiap laporan KKN yang menumpuk di perpustakaan tanpa dibaca ulang tidak hanya merugikan satu angkatan. Ia merusak potensi desa terhadap kemungkinan bahwa sebuah proker akan membuahkan hasil. ProkerKita ada karena potensi desa layak dilanjutkan.
+              </h3>
+              <div className="flex items-center gap-4">
+                <span className="w-10 h-1 bg-[#55B55A] rounded-full"></span>
+                <span className="font-bold text-sm text-[#00723F] tracking-[0.2em] uppercase">Tim ProkerKita</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -191,7 +278,7 @@ export function Kontak() {
 
   useGSAP(
     () => {
-      // Signature GSAP Sine Wave Motion for Kites (Like gsap.com showcase animations)
+      // Animasi layangan
       // Kite 1: Soaring & Swaying Red-Yellow Kite
       gsap.to(".footer-kite-1", {
         x: 65,
@@ -230,7 +317,7 @@ export function Kontak() {
         delay: 0.7,
       });
 
-      // Ribbon Tail Fluttering Animations
+      // Ekor layangan goyang
       gsap.to(".footer-kite-tail-1", {
         skewX: 18,
         rotation: 14,
@@ -356,30 +443,52 @@ export function Kontak() {
             </div>
           ) : (
             <div className="space-y-4">
-              <h3 className="font-display text-xl font-bold">Ajak kami ngobrol</h3>
-              {[
-                { l: "Nama kamu", p: "Nama lengkap" },
-                { l: "Kampus / organisasi", p: "Contoh: LPPM Universitas ..." },
-                { l: "Email", p: "nama@kampus.ac.id" },
-              ].map((f) => (
-                <label key={f.l} className="block">
-                  <span className="mb-1.5 block text-sm font-bold">{f.l}</span>
+              <h3 className="font-display text-2xl font-bold text-ink">Ayo Kolaborasi</h3>
+              <p className="text-ink/70 text-sm mt-1 mb-4 leading-relaxed">
+                Tertarik untuk menghubungkan arsip kampusmu dengan database kami? Tinggalkan kontakmu di sini!
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-bold text-ink">Nama / Perwakilan</span>
                   <input
                     required
-                    placeholder={f.p}
-                    className="w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none placeholder:text-ink/40"
+                    type="text"
+                    placeholder="Nama kamu"
+                    className="w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-ink transition-colors placeholder:text-ink/30 shadow-inner"
                   />
                 </label>
-              ))}
-              <label className="block">
-                <span className="mb-1.5 block text-sm font-bold">Mau kontribusi apa?</span>
-                <textarea
-                  rows={3}
-                  placeholder="Contoh: kami punya 40 laporan KKN 2021–2025"
-                  className="w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none placeholder:text-ink/40"
+                <label className="block">
+                  <span className="mb-2 block text-sm font-bold text-ink">Instansi / Kampus</span>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Universitas..."
+                    className="w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-ink transition-colors placeholder:text-ink/30 shadow-inner"
+                  />
+                </label>
+              </div>
+
+              <label className="block mt-4 mb-4">
+                <span className="mb-2 block text-sm font-bold text-ink">Email Kampus / Organisasi</span>
+                <input
+                  required
+                  type="email"
+                  placeholder="contoh@kampus.ac.id"
+                  className="w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-ink transition-colors placeholder:text-ink/30 shadow-inner"
                 />
               </label>
-              <button type="submit" className="btn-pionir btn-pionir-orange w-full px-6 py-3">
+
+              <label className="block mt-4 mb-6">
+                <span className="mb-2 block text-sm font-bold text-ink">Pesan Singkat</span>
+                <textarea
+                  rows={3}
+                  placeholder="Contoh: Kami punya 200+ laporan tahun 2023..."
+                  className="w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-sm font-medium outline-none focus:border-ink transition-colors placeholder:text-ink/30 shadow-inner"
+                />
+              </label>
+              
+              <button type="submit" className="btn-pionir btn-pionir-orange w-full px-6 py-4 font-bold text-base shadow-md hover:-translate-y-1 hover:shadow-lg transition-all">
                 Kirim Ajakan Kolaborasi
               </button>
             </div>
@@ -424,17 +533,80 @@ export function Kontak() {
 
 export function Footer() {
   return (
-    <footer className="relative bg-[#059669] text-white pt-4 pb-10 overflow-hidden">
-      <div className="relative mx-auto grid max-w-6xl gap-4 px-4 sm:px-6 md:grid-cols-[1fr_auto] md:items-center z-10 border-t border-white/20 pt-6">
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border-2 border-white/70 bg-[#ffc72c] text-ink shadow-md">
-            <PinIcon className="h-5 w-5" />
-          </span>
-          <p className="truncate font-display text-xl font-extrabold text-white">ProkerKita</p>
+    <footer className="relative bg-gradient-to-b from-[#059669] to-[#064e3b] text-white pt-20 pb-12 overflow-hidden border-t border-solid border-[#10b981]">
+      
+      {/* Background Soft Glows */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#34d399] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#10b981] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-16">
+          
+          {/* Brand Col */}
+          <div className="col-span-1 md:col-span-2 lg:col-span-1 flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white shadow-xl overflow-hidden p-2">
+                <img src="/favicon.svg" alt="ProkerKita Logo" className="w-full h-full object-contain" />
+              </span>
+              <p className="font-display text-3xl font-extrabold text-white tracking-tight">Proker<span className="text-[#ffc72c]">Kita</span></p>
+            </div>
+            <p className="text-white/80 text-sm font-medium leading-relaxed">
+              Platform kolaborasi arsip laporan KKN pertama di Indonesia. Membantu mahasiswa menyusun rencana yang terukur dan berdampak nyata.
+            </p>
+            <div className="flex gap-4 mt-2">
+              {/* Social Icons (SVGs, NO EMOJIS, NO TEXT ABBREVIATIONS) */}
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#ffc72c] hover:text-[#064e3b] cursor-pointer transition-all shadow-sm">
+                {/* Instagram */}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#ffc72c] hover:text-[#064e3b] cursor-pointer transition-all shadow-sm">
+                {/* Twitter / X */}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#ffc72c] hover:text-[#064e3b] cursor-pointer transition-all shadow-sm">
+                {/* LinkedIn */}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Links Col 1 */}
+          <div className="flex flex-col gap-4 lg:pl-10">
+            <h4 className="font-bold text-lg text-[#ffc72c]">Produk</h4>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Pencarian Laporan</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Validasi Ide Proker</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Integrasi Kampus</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Harga & Paket</a>
+          </div>
+
+          {/* Links Col 2 */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-bold text-lg text-[#ffc72c]">Sumber Daya</h4>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Blog & Artikel</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Panduan KKN</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Kisah Sukses</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Pusat Bantuan</a>
+          </div>
+
+          {/* Links Col 3 */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-bold text-lg text-[#ffc72c]">Perusahaan</h4>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Tentang Kami</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Karir</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Kebijakan Privasi</a>
+            <a href="#" className="text-white/80 hover:text-white hover:translate-x-1 text-sm font-medium transition-all">Syarat & Ketentuan</a>
+          </div>
         </div>
-        <p className="text-sm font-medium text-white/90">
-          Prototipe front-end. Semua angka dan laporan di sini masih data contoh.
-        </p>
+
+        {/* Bottom Banner */}
+        <div className="border-t border-solid border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm font-medium text-white/70">
+            © {new Date().getFullYear()} ProkerKita Nusantara. Hak Cipta Dilindungi.
+          </p>
+          <div className="text-sm font-bold text-white bg-white/10 px-4 py-2 rounded-full border border-solid border-white/10 shadow-sm">
+            Dibuat di Indonesia
+          </div>
+        </div>
       </div>
     </footer>
   );

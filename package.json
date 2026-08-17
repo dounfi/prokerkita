@@ -3,7 +3,11 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
-  "author": "dounfi",
+  "author": "Nur'afia Avanza",
+  "contributors": [
+    "Nur'afia Avanza",
+    "Nada"
+  ],
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",

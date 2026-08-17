@@ -3,15 +3,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { MapNetwork, PinIcon, SectionLabel } from "./Decor";
+import { Menu, X } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const navLinks = [
-  { href: "/#masalah", label: "Masalah" },
   { href: "/#cara-kerja", label: "Cara Kerja" },
-  { href: "/#validasi", label: "Validasi" },
   { href: "/repository", label: "Repository" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/about", label: "Tentang Kami" },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -19,6 +18,7 @@ const navLinks = [
 /* -------------------------------------------------------------------------- */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,20 +29,24 @@ export function Nav() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 pointer-events-none pt-2 sm:pt-4">
+    <header className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center transition-all duration-500 pointer-events-none pt-2 sm:pt-4">
       <div
         className={`pointer-events-auto flex items-center justify-between gap-4 transition-all duration-500 ease-out ${scrolled
-          ? "w-[92%] max-w-5xl rounded-full bg-white/40 px-6 py-2.5 border border-white/40 backdrop-blur-xl shadow-xl shadow-slate-900/10"
-          : "w-full max-w-6xl rounded-none bg-transparent px-6 py-4 border-b border-transparent"
+          ? "w-[92%] max-w-5xl rounded-full bg-white/40 px-4 sm:px-6 py-2.5 border border-white/40 backdrop-blur-xl shadow-xl shadow-slate-900/10"
+          : "w-full max-w-6xl rounded-none bg-transparent px-4 sm:px-6 py-4 border-b border-transparent"
           }`}
       >
         {/* Brand Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-leaf text-leaf-foreground shadow-sm transition-transform group-hover:scale-105">
-            <PinIcon className="h-5 w-5" />
-          </span>
-          <span className="font-display text-xl font-extrabold tracking-tight text-ink">
-            Proker<span className="text-leaf">Kita</span>
+        <a href="/" className="flex items-center gap-2 select-none z-[60] relative group">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-md group-hover:scale-105 transition-transform duration-300">
+            <path d="M20 38.5C20 38.5 3.5 25.5 3.5 15.5C3.5 6.3873 10.8873 2.5 20 2.5C29.1127 2.5 36.5 6.3873 36.5 15.5C36.5 25.5 20 38.5 20 38.5Z" fill="#0284C7" />
+            <path d="M20 35C20 35 6 23.5 6 14.5C6 6.76801 12.268 0.5 20 0.5C27.732 0.5 34 6.76801 34 14.5C34 23.5 20 35 20 35Z" fill="#38BDF8" />
+            <circle cx="20" cy="14" r="8" fill="white" />
+            <path d="M20 18C20 18 24 9.5 29 11C30.5 11.45 27 18.5 20 18Z" fill="#4ADE80" />
+            <path d="M20 17.5C20 17.5 15.5 11 12 13C10.5 13.85 14.5 19 20 17.5Z" fill="#22C55E" />
+          </svg>
+          <span className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-slate-800">
+            Proker<span className="text-[#E67E22]">Kita</span><span className="text-[#2ECC71]">.</span>
           </span>
         </a>
 
@@ -57,15 +61,40 @@ export function Nav() {
               {n.label}
             </a>
           ))}
-          <a href="#validasi" className="btn-pionir btn-pionir-orange px-5 py-2.5 text-sm">
+          <a href="/validasi" className="btn-pionir btn-pionir-orange px-5 py-2.5 text-sm">
             Cek Proker Ini
           </a>
         </nav>
 
-        {/* Mobile Action Button */}
-        <a href="#validasi" className="btn-pionir btn-pionir-orange px-4 py-2 text-xs md:hidden">
-          Cek Proker
-        </a>
+        {/* Mobile Hamburger Button */}
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden text-ink p-2 relative z-[60]"
+          aria-label="Toggle Menu"
+        >
+          {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`md:hidden pointer-events-auto absolute top-full left-0 right-0 mt-2 mx-4 bg-white/95 backdrop-blur-xl border border-slate-200 shadow-xl rounded-2xl overflow-hidden transition-all duration-300 origin-top ${isMobileMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`}
+      >
+        <div className="flex flex-col p-4 gap-2">
+          {navLinks.map((n) => (
+            <a
+              key={n.href}
+              href={n.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-base font-bold text-ink/80 transition-colors hover:text-leaf py-3 px-2 border-b border-slate-100 last:border-0"
+            >
+              {n.label}
+            </a>
+          ))}
+          <a href="/validasi" onClick={() => setIsMobileMenuOpen(false)} className="btn-pionir btn-pionir-orange w-full py-3.5 mt-4 text-center text-sm font-bold">
+            Cek Proker Ini
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -79,7 +108,7 @@ export function Hero() {
 
   useGSAP(
     () => {
-      // 0. Hero Intro Entrance Animations (On Page Load)
+      // 0. Animasi masuk awal
       gsap.from(".hero-title-line", {
         y: 40,
         opacity: 0,
@@ -89,7 +118,7 @@ export function Hero() {
         delay: 0.1,
       });
 
-      gsap.from([".hero-sub-line-1", ".hero-sub-line-2"], {
+      gsap.from([".hero-sub-line-1"], {
         y: 25,
         opacity: 0,
         duration: 0.8,
@@ -108,7 +137,7 @@ export function Hero() {
         delay: 0.75,
       });
 
-      // 1. Ambient Infinite Animations (Clouds, Birds, Swaying Trees)
+      // 1. Animasi ambient jalan terus
       gsap.to(".cloud-panning-1", {
         x: "100vw",
         duration: 40,
@@ -159,7 +188,7 @@ export function Hero() {
         ease: "sine.inOut",
       });
 
-      // Subtitle Wave Motion (GSAP Ambient Wavy Floating Animation)
+      // Teks subjudul goyang ombak
       gsap.to(".hero-sub-line-1", {
         y: -5,
         rotation: 0.6,
@@ -179,31 +208,31 @@ export function Hero() {
         delay: 0.3,
       });
 
-      // 2 & 3. Combine Pin and Parallax Scroll Scrubbing
+      // 2 & 3. Parallax pas di-scroll
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero",
           start: "top top",
-          end: "+=120%", // Keep it pinned a bit longer for massive parallax effect
-          scrub: 1, // Smooth scrubbing
-          pin: true, // Pin the hero section
-          pinSpacing: false, // Let the next section overlap
+          end: "+=120%", // Tahan pinning biar parallax kerasa
+          scrub: 1, // Biar alus scrollnya
+          pin: true, // Pin bagian hero
+          pinSpacing: false, // Biar section bawah bisa numpuk
         },
       });
 
-      // Layer 7: Typography & CTA Card moves UP massively and fades out
+      // Layer 7: Teks sama kartu naik
       tl.to(".layer-typography", { yPercent: -80, opacity: 0, ease: "none" }, 0);
 
-      // Layer 4: Distant Mountains move DOWN slowly
+      // Layer 4: Gunung turun pelan
       tl.to(".layer-mountains", { yPercent: 20, ease: "none" }, 0);
 
-      // Layer 5: Posko House moves DOWN faster
+      // Layer 5: Rumah posko agak cepet
       tl.to(".layer-posko", { yPercent: 40, scale: 1.05, ease: "none" }, 0);
 
-      // Layer 6: Foreground (Trees & Terraces) moves DOWN fastest & zooms out
+      // Layer 6: Foreground paling cepet
       tl.to(".layer-foreground", { yPercent: 75, scale: 1.15, ease: "none" }, 0);
 
-      // Layer 2 & 3: Clouds & Birds move UP slightly
+      // Layer 2 & 3: Awan sama burung naik
       tl.to(".layer-sky-elements", { yPercent: -30, ease: "none" }, 0);
     },
     { scope: heroRef },
@@ -250,7 +279,7 @@ export function Hero() {
       {/* -------------------------------------------------------------------- */}
       {/* LAYER 4: Distant Mountain Peaks (Vector SVG)                         */}
       {/* -------------------------------------------------------------------- */}
-      <div className="layer-mountains absolute bottom-0 left-0 w-full z-[3] pointer-events-none">
+      <div className="layer-mountains absolute bottom-0 left-1/2 -translate-x-1/2 w-[200vw] sm:w-[150vw] md:w-full min-w-[1000px] md:min-w-0 z-[3] pointer-events-none">
         <svg
           viewBox="0 0 1440 450"
           fill="none"
@@ -311,7 +340,7 @@ export function Hero() {
       {/* -------------------------------------------------------------------- */}
       {/* LAYER 5: Posko House / Central Joglo Structure                       */}
       {/* -------------------------------------------------------------------- */}
-      <div className="layer-posko absolute bottom-[10vh] left-1/2 -translate-x-1/2 z-[4] w-[85vw] max-w-[850px] pointer-events-none">
+      <div className="layer-posko absolute bottom-[16vh] left-1/2 -translate-x-1/2 z-[4] w-[140vw] sm:w-[85vw] min-w-[500px] sm:min-w-0 max-w-none sm:max-w-[850px] pointer-events-none">
         <svg
           viewBox="0 0 850 320"
           fill="none"
@@ -383,7 +412,7 @@ export function Hero() {
       {/* -------------------------------------------------------------------- */}
       {/* LAYER 6: Foreground (Trees & Terraced Rice Fields)                   */}
       {/* -------------------------------------------------------------------- */}
-      <div className="layer-foreground absolute bottom-0 left-0 w-full z-[5] pointer-events-none">
+      <div className="layer-foreground absolute bottom-0 left-1/2 -translate-x-1/2 w-[200vw] sm:w-[150vw] md:w-full min-w-[1000px] md:min-w-0 z-[5] pointer-events-none">
         <svg
           viewBox="0 0 1440 380"
           fill="none"
@@ -451,13 +480,13 @@ export function Hero() {
           {/* Back Rice Terrace Level */}
           <path
             d="M 0,220 C 350,180 650,260 950,200 C 1200,150 1350,210 1440,200 L 1440,380 L 0,380 Z"
-            fill="url(#sawahGrad1)"
+            fill="#34d399"
           />
 
           {/* Middle Rice Terrace Level */}
           <path
             d="M 0,270 C 380,240 580,320 880,260 C 1130,210 1320,280 1440,260 L 1440,380 L 0,380 Z"
-            fill="url(#sawahGrad2)"
+            fill="#10b981"
           />
 
           {/* Front Rice Terrace Level (Flush to bottom) */}
@@ -478,15 +507,15 @@ export function Hero() {
       {/* -------------------------------------------------------------------- */}
       {/* LAYER 7: Front Hero Typography & Action Glass Card                   */}
       {/* -------------------------------------------------------------------- */}
-      <div className="layer-typography relative z-10 flex flex-col items-center justify-center pt-24 sm:pt-28 md:pt-36 px-4 text-center">
-        <h1 className="font-display font-bold text-[clamp(2.3rem,5.5vw,4.8rem)] leading-[1.08] tracking-tight">
-          <span className="hero-title-line">
+      <div className="layer-typography relative z-10 flex flex-col items-center justify-center pt-20 sm:pt-28 md:pt-36 px-4 text-center">
+        <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-[clamp(3rem,5vw,4.8rem)] leading-[1.1] tracking-tight">
+          <span className="hero-title-line flex flex-col sm:inline-block">
             <span aria-hidden="true" className="hero-title-outline">
               Membangun Desa Bersama,
             </span>
             <span className="hero-title-fill">Membangun Desa Bersama,</span>
           </span>
-          <span className="hero-title-line hero-title-line-strong mt-2">
+          <span className="hero-title-line hero-title-line-strong flex flex-col sm:inline-block mt-2">
             <span aria-hidden="true" className="hero-title-outline">
               Wujudkan Proker Nyata
             </span>
@@ -494,20 +523,20 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="hero-sub mt-6 flex flex-col items-center gap-2.5 max-w-4xl text-center text-xs sm:text-sm md:text-base text-ink font-bold leading-relaxed">
-          <span className="hero-sub-line-1 inline-block bg-white/80 backdrop-blur-sm px-5 py-1.5 rounded-full shadow-sm border border-white/60">
+        <div className="hero-sub mt-4 sm:mt-6 flex flex-col items-center gap-2 sm:gap-2.5 max-w-3xl text-center text-xs sm:text-sm md:text-base text-ink font-bold leading-snug sm:leading-relaxed">
+          <div className="hero-sub-line-1 bg-white/80 backdrop-blur-sm px-4 sm:px-5 py-2 sm:py-1.5 rounded-2xl sm:rounded-full shadow-sm border border-white/60 w-full sm:w-auto">
             Validasi ide proker KKN kamu dengan laporan desa lain,
-          </span>
-          <span className="hero-sub-line-2 inline-block bg-white/80 backdrop-blur-sm px-5 py-1.5 rounded-full shadow-sm border border-white/60">
+          </div>
+          <div className="hero-sub-line-2 bg-white/80 backdrop-blur-sm px-4 sm:px-5 py-2 sm:py-1.5 rounded-2xl sm:rounded-full shadow-sm border border-white/60 w-full sm:w-auto">
             temukan apa yang sudah dicoba, pelajari hasilnya, dan pilih langkah yang lebih tepat.
-          </span>
+          </div>
         </div>
 
-        <div className="hero-cta mt-8 flex flex-wrap justify-center gap-4">
-          <a href="/#validasi" className="btn-pionir btn-pionir-orange px-8 py-3.5 text-lg">
+        <div className="hero-cta mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 w-full sm:w-auto px-6 sm:px-0">
+          <a href="/validasi" className="btn-pionir btn-pionir-orange w-full sm:w-auto px-8 py-3.5 text-base sm:text-lg">
             Cek Proker Ini
           </a>
-          <a href="/repository" className="btn-pionir btn-pionir-yellow px-8 py-3.5 text-lg">
+          <a href="/repository" className="btn-pionir btn-pionir-yellow w-full sm:w-auto px-8 py-3.5 text-base sm:text-lg">
             Lihat Laporan
           </a>
         </div>
@@ -538,49 +567,186 @@ const angles = [
 ];
 
 export function Masalah() {
-  return (
-    <section
-      id="masalah"
-      className="border-b border-ink/10 bg-white shadow-[0_15px_45px_rgba(0,0,0,0.12)] rounded-t-[2.5rem] sm:rounded-t-[3.5rem] rounded-b-[2.5rem] sm:rounded-b-[3.5rem] mt-[-1rem] relative z-30"
-    >
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
-        <SectionLabel>Masalahnya di sini</SectionLabel>
-        <h2 className="max-w-3xl font-display text-3xl font-extrabold sm:text-5xl" data-reveal>
-          Banyak proker KKN dibuat tanpa tahu apa yang sudah pernah dicoba.
-        </h2>
-        <p className="mt-4 max-w-3xl text-base sm:text-xl text-ink/75 font-medium leading-relaxed" data-reveal>
-          Pengalaman dari proker KKN sebelumnya bisa jadi bahan pertimbangan sebelum kamu mulai.
-        </p>
+  const sectionRef = useRef<HTMLElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
-        <div className="mt-12 space-y-8">
-          {angles.map((a, i) => (
-            <article
-              key={a.kicker}
-              data-reveal={i % 2 === 0 ? "left" : "right"}
-              className={`grid gap-6 rounded-2xl border border-ink/10 p-6 md:grid-cols-[auto_1fr] md:p-8 ${a.tone} pk-hard`}
-            >
-              <p className="font-display text-sm font-bold tracking-[0.2em] uppercase opacity-80">
-                {a.kicker}
-              </p>
-              <div>
-                <h3 className="font-display text-2xl font-bold sm:text-3xl">{a.title}</h3>
-                <p className="mt-3 max-w-2xl opacity-85">{a.body}</p>
-                <p className="mt-5 border-l-4 border-current/40 pl-4 text-sm italic opacity-80">
-                  {a.quote}
-                </p>
-              </div>
-            </article>
-          ))}
+  useGSAP(() => {
+    // 1. Animasi melayang santai
+    gsap.to(".levitate-1", { y: -20, duration: 2.5, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".levitate-2", { y: -25, duration: 3, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 0.5 });
+    gsap.to(".levitate-3", { y: -15, duration: 2.2, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 1 });
+
+    // 2. Scroll parallax
+    gsap.to(".parallax-bg-slow", {
+      yPercent: 30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
+    gsap.to(".parallax-island", {
+      yPercent: -15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
+    // 3. Muncul pas discroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".roadmap-container",
+        start: "top 70%",
+        end: "bottom 80%",
+        scrub: 1,
+      }
+    });
+
+    const pathLength = pathRef.current?.getTotalLength() || 2000;
+    gsap.set(pathRef.current, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+    
+    tl.to(pathRef.current, { strokeDashoffset: 0, ease: "none", duration: 10 }, 0);
+
+    tl.fromTo(".island-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, ease: "back.out(1.5)", duration: 2 }, 1)
+      .fromTo(".island-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, ease: "back.out(1.5)", duration: 2 }, 4.5)
+      .fromTo(".island-3", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, ease: "back.out(1.5)", duration: 2 }, 8);
+
+  }, { scope: sectionRef });
+
+  return (
+    <section 
+      ref={sectionRef} 
+      id="masalah" 
+      className="relative w-full min-h-[150vh] bg-gradient-to-b from-[#059669] via-[#B3E5FC] to-[#B3E5FC] pb-48 md:pb-64 z-40 pt-12"
+    >
+      {/* 1. SEAMLESS CURTAIN WAVE OVERLAP */}
+      <div className="absolute top-0 left-0 w-full transform -translate-y-[99%] z-[45] pointer-events-none leading-none">
+        <svg viewBox="0 0 1440 100" className="w-full h-[50px] md:h-[100px] block" preserveAspectRatio="none">
+          <path d="M0,100 C400,0 1000,0 1440,100 L1440,100 L0,100 Z" fill="#059669" />
+        </svg>
+      </div>
+
+      {/* 2. TRANSITION GRADIENT TO BLEND COLORS */}
+      <div className="absolute top-0 left-0 w-full h-[30vh] z-[10] bg-gradient-to-b from-[#059669] to-transparent pointer-events-none" />
+      
+
+      
+
+      {/* Background Aesthetic Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="parallax-bg-slow absolute top-[10%] left-[5%] w-32"><CloudSVG /></div>
+        <div className="parallax-bg-slow absolute top-[40%] right-[10%] w-48"><CloudSVG /></div>
+        <div className="parallax-bg-slow absolute top-[70%] left-[15%] w-40"><CloudSVG /></div>
+        <div className="parallax-bg-slow absolute top-[85%] right-[20%] w-32"><CloudSVG /></div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 w-full">
+        {/* Title */}
+        <div className="text-center mb-10 md:mb-20 relative z-20 flex flex-col items-center justify-center pt-8">
+          <SectionLabel>Masalahnya di sini</SectionLabel>
+          <h2 className="max-w-4xl font-display text-3xl font-extrabold sm:text-5xl leading-[1.12] text-center mt-6" data-reveal>
+            <span className="hero-title-line">
+              <span aria-hidden="true" className="hero-title-outline">
+                Banyak proker KKN dibuat tanpa
+              </span>
+              <span className="hero-title-fill">
+                Banyak proker KKN dibuat tanpa
+              </span>
+            </span>
+            <span className="hero-title-line mt-1">
+              <span aria-hidden="true" className="hero-title-outline">
+                tahu apa yang sudah pernah
+              </span>
+              <span className="hero-title-fill">
+                tahu apa yang sudah pernah
+              </span>
+            </span>
+            <span className="hero-title-line hero-title-line-strong mt-1">
+              <span aria-hidden="true" className="hero-title-outline">
+                dicoba.
+              </span>
+              <span className="hero-title-fill">
+                dicoba.
+              </span>
+            </span>
+          </h2>
         </div>
 
-        <div
-          className="mt-10 flex flex-wrap items-center gap-4 rounded-2xl border-2 border-dashed border-ink/20 p-6"
-          data-reveal
-        >
-          <MapNetwork className="h-16 w-24 shrink-0 text-leaf" />
-          <p className="min-w-0 flex-1 text-lg font-semibold">
-            Yang kurang bukan semangat, tapi akses ke pengalaman kelompok sebelumnya.
-          </p>
+        {/* Roadmap Container */}
+        <div className="roadmap-container relative w-full h-[1100px] md:h-[1100px] mt-10">
+          
+          {/* Connecting Path */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <path 
+              ref={pathRef}
+              d="M 20 10 C 80 20, 90 50, 70 50 C 30 50, 10 75, 50 85" 
+              fill="none" 
+              stroke="white" 
+              strokeWidth="4"
+              strokeDasharray="12 12"
+              vectorEffect="non-scaling-stroke"
+              strokeLinecap="round"
+              opacity="0.8"
+              className="drop-shadow-lg"
+            />
+          </svg>
+
+          {/* Island 1 - Top Left */}
+          <div className="island-1 absolute top-[5%] left-[5%] md:left-[10%] w-[180px] sm:w-[240px] md:w-[220px] lg:w-[260px] z-10">
+            <div className="levitate-1">
+              <div className="parallax-island relative flex flex-col items-center">
+                {/* Signpost Card overlapping the island */}
+                <div className="relative top-10 md:top-14 z-10 w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-white/60 p-5 text-center">
+                  <p className="text-xl md:text-2xl font-bold text-orange-600">
+                    Ngulang proker yang udah gagal di tempat lain.
+                  </p>
+                </div>
+                <div className="w-full relative z-0">
+                  <IslandSVG src="/island-1.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Island 2 - Middle Right */}
+          <div className="island-2 absolute top-[32%] right-[5%] md:right-[10%] w-[180px] sm:w-[240px] md:w-[220px] lg:w-[260px] z-20">
+            <div className="levitate-2">
+              <div className="parallax-island relative flex flex-col items-center">
+                <div className="relative top-10 md:top-14 z-10 w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-white/60 p-5 text-center">
+                  <p className="text-xl md:text-2xl font-bold text-blue-800">
+                    Gak tau ide kita bakal jalan atau enggak.
+                  </p>
+                </div>
+                <div className="w-full relative z-0">
+                  <IslandSVG src="/island-2.png" delay={0.5} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Island 3 - Bottom Center */}
+          <div className="island-3 absolute top-[62%] left-1/2 transform -translate-x-1/2 w-[200px] sm:w-[280px] md:w-[260px] lg:w-[300px] z-30">
+            <div className="levitate-3">
+              <div className="parallax-island relative flex flex-col items-center">
+                <div className="relative top-14 md:top-20 z-10 w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.15)] border border-white/60 p-6 text-center">
+                  <p className="text-2xl md:text-3xl font-extrabold text-emerald-700">
+                    Yang kurang bukan semangat, tapi akses ke pengalaman kelompok sebelumnya.
+                  </p>
+                </div>
+                <div className="w-full relative z-0">
+                  <IslandSVG src="/island-3.png" delay={1} />
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -636,7 +802,7 @@ export function CaraKerja() {
 
   useGSAP(
     () => {
-      // Horizontal Panning Clouds Animation (Wide Left to Right & Right to Left)
+      // Awan geser kiri kanan
       gsap.to(".ck-cloud-1", {
         x: 180,
         y: -10,
@@ -673,7 +839,7 @@ export function CaraKerja() {
         ease: "sine.inOut",
       });
 
-      // Continuous Synchronized Ocean Wave Motion Ripple (Runs 24/7 automatically)
+      // Ombak jalan terus
       gsap.to(".sticky-card-0", {
         y: -22,
         rotation: -4.5,
@@ -721,7 +887,7 @@ export function CaraKerja() {
     <section
       id="cara-kerja"
       ref={containerRef}
-      className="relative overflow-hidden border-b border-ink/10 mt-[-2.5rem] pt-20 pb-16 z-20 bg-gradient-to-b from-[#e0f2fe] via-[#bae6fd] to-[#7dd3fc] text-ink"
+      className="relative overflow-hidden pt-12 pb-16 z-20 bg-gradient-to-b from-[#B3E5FC] via-[#bae6fd] to-[#7dd3fc] text-ink"
     >
       {/* Floating Sky Vector Clouds */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -814,5 +980,20 @@ export function CaraKerja() {
         </div>
       </div>
     </section>
+  );
+}
+
+
+export function CloudSVG() {
+  return (
+    <svg viewBox="0 0 280 90" fill="white" className="opacity-80 drop-shadow-lg">
+      <path d="M 30,70 Q 50,30 90,40 Q 120,10 170,30 Q 210,20 250,50 Q 270,70 250,75 Z" />
+    </svg>
+  );
+}
+
+export function IslandSVG() {
+  return (
+    <img src="/island-1.png" alt="Island" className="w-full h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] object-contain" />
   );
 }

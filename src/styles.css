@@ -1,6 +1,6 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -190,18 +190,18 @@
 }
 
 @utility pk-hard {
-  box-shadow: 2px 4px 8px 0px rgba(35, 35, 35, 0.08), inset 0px -4px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 8px 0px rgba(35,35,35,0.08), inset 0px -4px 0px 0px rgba(0,0,0,0.1);
   border: none;
 }
 
 @utility pk-hard-sm {
-  box-shadow: 2px 2px 6px 0px rgba(35, 35, 35, 0.05), inset 0px -2px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 6px 0px rgba(35,35,35,0.05), inset 0px -2px 0px 0px rgba(0,0,0,0.1);
   border: none;
 }
 
 @utility pk-grid-paper {
   background-image: none;
-  background: radial-gradient(circle at 50% 40%, rgba(255, 254, 238, 0.92) 0%, rgba(196, 242, 250, 0.72) 24%, rgba(129, 219, 247, 0.92) 58%, #90ddf6 100%);
+  background: radial-gradient(circle at 50% 40%, rgba(255,254,238,0.92) 0%, rgba(196,242,250,0.72) 24%, rgba(129,219,247,0.92) 58%, #90ddf6 100%);
 }
 
 @utility pk-dots {
@@ -215,16 +215,15 @@ html {
 }
 
 @utility mask-pionir-pattern {
-  display: block;
-  background-color: var(--color-ink);
-  background-position: center top;
+  background-color: var(--color-sky);
+  background-position: left top;
   background-repeat: repeat;
-  background-size: 140px 140px;
-  mask-image: url("/prokerkita-pattern.svg");
-  mask-position: center top;
+  background-size: 319px 339px;
+  mask-image: url("/background.svg");
+  mask-position: left top;
   mask-repeat: repeat;
-  mask-size: 140px 140px;
-  opacity: 0.05;
+  mask-size: 319px 339px;
+  opacity: 0.25;
 }
 
 @utility hero-title-line {
@@ -236,10 +235,9 @@ html {
   position: absolute;
   inset: 0;
   display: block;
-  -webkit-text-stroke: 10px #ffffff;
+  -webkit-text-stroke: 8px #ffffff;
   color: #ffffff;
   z-index: 0;
-  filter: drop-shadow(0px 8px 16px rgba(0, 40, 85, 0.15));
 }
 
 @utility hero-title-fill {
@@ -268,7 +266,7 @@ html {
   color: var(--button-text);
   outline: 2px solid var(--button-outline);
   outline-offset: -2px;
-  box-shadow: 2px 4px 3px 0px rgba(35, 35, 35, 0.15), inset 0px -4px 0px 0px var(--button-shadow-bottom), inset 0px 4px 0px 0px var(--button-shadow-top);
+  box-shadow: 2px 4px 3px 0px rgba(35,35,35,0.15), inset 0px -4px 0px 0px var(--button-shadow-bottom), inset 0px 4px 0px 0px var(--button-shadow-top);
   transition-property: background-color, color, box-shadow, outline-color;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -278,21 +276,21 @@ html {
   --button-disabled-outline: #9ca3af;
   --button-disabled-shadow-bottom: #9ca3af;
   --button-disabled-shadow-top: #e5e7eb;
-
+  
   &:hover {
     background-color: var(--button-hover-bg);
     outline-color: var(--button-hover-outline);
     --button-shadow-bottom: var(--button-hover-shadow-bottom);
     --button-shadow-top: var(--button-hover-shadow-top);
   }
-
+  
   &:active {
     background-color: var(--button-active-bg);
     outline-color: var(--button-active-outline);
     --button-shadow-bottom: var(--button-active-shadow-bottom);
     --button-shadow-top: var(--button-active-shadow-top);
   }
-
+  
   &:disabled {
     pointer-events: none;
     cursor: not-allowed;
@@ -302,7 +300,7 @@ html {
     --button-shadow-bottom: var(--button-disabled-shadow-bottom);
     --button-shadow-top: var(--button-disabled-shadow-top);
   }
-
+  
   & svg {
     pointer-events: none;
     flex-shrink: 0;

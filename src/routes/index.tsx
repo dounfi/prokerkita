@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useReveal } from "@/components/pk/useReveal";
 import { CaraKerja, Hero, Masalah, Nav } from "@/components/pk/Top";
 import { Validator } from "@/components/pk/Validator";
-import { Faq, Footer, Kontak, StudiKasus, Tentang } from "@/components/pk/Bottom";
+import { Footer, Kontak, Tentang } from "@/components/pk/Bottom";
+import FeatureShowcase from "@/components/pk/FeatureShowcase";
+import FAQSection from "@/components/pk/FAQ";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,16 +32,15 @@ function Index() {
   const ref = useReveal<HTMLDivElement>();
 
   return (
-    <div ref={ref} className="min-h-screen bg-cream text-ink">
+    <div ref={ref} className="min-h-screen bg-cream text-ink overflow-x-hidden">
       <Nav />
       <main>
         <Hero />
         <Masalah />
         <CaraKerja />
         <Validator />
-        <StudiKasus />
-        <Tentang />
-        <Faq />
+        <FeatureShowcase />
+        <FAQSection />
         <Kontak />
       </main>
       <Footer />
