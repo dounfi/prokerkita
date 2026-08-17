@@ -1,0 +1,12 @@
+export { Nav } from "./Nav";
+export { Hero } from "./Hero";
+export { Masalah, CloudSVG, IslandSVG } from "./Masalah";
+export { CaraKerja } from "./CaraKerja";
+export { Validator } from "./Validator";
+export { default as FeatureShowcase } from "./FeatureShowcase";
+export { default as FAQSection } from "./FAQ";
+export { default as RepositorySection } from "./Repository";
+export { Tentang } from "./Tentang";
+export { Kontak } from "./Kontak";
+export { Footer } from "./Footer";
+export { SectionLabel, PinIcon, MapNetwork, ContourLines, Tag } from "./Decor";

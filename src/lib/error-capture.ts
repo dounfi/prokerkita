@@ -1,6 +1,4 @@
-// Captures the original Error out-of-band so server.ts can recover the stack
-// when h3 has already swallowed the throw into a generic 500 Response.
-
+// Menyimpan error terkini agar stack trace dapat dipulihkan jika terjadi kegagalan server
 let lastCapturedError: { error: unknown; at: number } | undefined;
 const TTL_MS = 5_000;
 
@@ -8,10 +6,7 @@ function record(error: unknown) {
   lastCapturedError = { error, at: Date.now() };
 }
 
-// h3's HTTPError serializes to {"status":500,"unhandled":true,"message":"HTTPError"} —
-// no stack, no cause — so a plain console.error(error) reaches the log pipeline with
-// the failure detail stripped. Expand Error-like args into a string that keeps the
-// message, stack, and the full cause chain.
+// Mengurai dan memformat detail Error menjadi pesan string yang mencakup stack trace dan penyebab error
 const CAUSE_DEPTH_LIMIT = 5;
 const DESCRIPTION_LENGTH_LIMIT = 8_000;
 

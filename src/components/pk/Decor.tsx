@@ -92,12 +92,20 @@ export function Tag({
   );
 }
 
-export function SectionLabel({ children }: { children: React.ReactNode }) {
+export function SectionLabel({
+  children,
+  showLine = true,
+  className = "",
+}: {
+  children: React.ReactNode;
+  showLine?: boolean;
+  className?: string;
+}) {
   return (
-    <div className="mb-4 flex items-center gap-3" data-reveal="left">
-      <span className="h-3 w-3 rotate-45 bg-clay" />
+    <div className={`mb-4 flex items-center gap-3 ${className}`} data-reveal="left">
+      <span className="h-3 w-3 rotate-45 bg-clay shrink-0" />
       <span className="font-display text-xs font-bold tracking-[0.25em] uppercase">{children}</span>
-      <span className="h-px flex-1 bg-ink/25" />
+      {showLine && <span className="h-px flex-1 bg-ink/25" />}
     </div>
   );
 }

@@ -37,8 +37,8 @@ const scenarios: Record<Outcome, { form: Form; result: Result }> = {
         { label: "Rata-rata biaya", value: "Rp 900rb" },
       ],
       evidence: [
-        "KKN UGM 2023 â€” Desa Kalibawang: jadwal 2x seminggu, pengajar dari karang taruna.",
-        "KKN UNS 2022 â€” Desa Ngargosari: berhenti karena tempat dipakai kegiatan lain, solusinya pindah ke rumah warga.",
+        "KKN UGM 2023” Desa Kalibawang: jadwal 2x seminggu, pengajar dari karang taruna.",
+        "KKN UNS 2022” Desa Ngargosari: berhenti karena tempat dipakai kegiatan lain, solusinya pindah ke rumah warga.",
         "Kunci bertahan: ada 3 pengajar lokal sejak minggu pertama, bukan diambil alih mahasiswa.",
       ],
     },
@@ -96,7 +96,7 @@ const scenarios: Record<Outcome, { form: Form; result: Result }> = {
       score: 0,
       scoreLabel: "Preseden tersedia",
       points: [
-        { label: "Musim kemarau", value: "Mei â€“ Oktober" },
+        { label: "Musim kemarau", value: "Mei - Oktober" },
         { label: "Sinyal seluler", value: "Bagus di 2 dusun" },
         { label: "Akses jalan", value: "Berbatu, non-aspal" },
         { label: "Mata pencaharian", value: "Peternak & ladang" },
@@ -157,16 +157,16 @@ function ScoreBar({ value, label, tone }: { value: number; label: string; tone: 
   );
 }
 
-// Komponen pin jarum
+// Komponen jarum pin papan pengumuman
 const PushPin = ({ color = "bg-red-500", className = "" }: { color?: string, className?: string }) => (
   <div className={`absolute ${className} w-5 h-5 rounded-full ${color} shadow-md border border-black/20 z-20 flex items-center justify-center`}>
     <div className="w-1.5 h-1.5 bg-white/70 rounded-full absolute top-[3px] left-[3px]" />
-    {/* Pin shadow on board */}
+    {/* Bayangan efek tancapan pin pada papan */}
     <div className="absolute -bottom-2 -right-1 w-2 h-2 bg-black/30 rounded-full blur-[2px]" />
   </div>
 );
 
-// Komponen selotip
+// Komponen selotip transparan (Washi tape)
 const Tape = ({ className = "" }: { className?: string }) => (
   <div className={`absolute ${className} w-16 h-5 bg-white/70 backdrop-blur-sm shadow-sm rotate-[-2deg] z-20`} style={{ mixBlendMode: 'screen' }} />
 );
@@ -189,7 +189,7 @@ export function Validator() {
   }, [result]);
 
   useGSAP(() => {
-    // Animasi mading masuk melayang
+    // Animasi kemunculan papan mading utama saat di-scroll
     gsap.fromTo(
       corkboardRef.current,
       { y: 150, opacity: 0, rotation: 2 },
@@ -206,7 +206,7 @@ export function Validator() {
       }
     );
 
-    // Pin radar goyang dikit
+    // Animasi gerakan pin radar melayang
     gsap.to(".pin-float", {
       y: -10,
       rotation: 5,
@@ -216,7 +216,7 @@ export function Validator() {
       ease: "sine.inOut"
     });
 
-    // Balon melayang
+    // Animasi pergerakan balon latar belakang
     gsap.to(".balloon-float", {
       y: -25,
       duration: 4.5,
@@ -226,7 +226,7 @@ export function Validator() {
       stagger: { each: 1.2, from: "random" }
     });
 
-    // Burung terbang lewat
+    // Animasi penerbangan burung secara berkala
     gsap.to(".bird-fly", {
       x: "120vw",
       duration: 18,
@@ -244,13 +244,13 @@ export function Validator() {
       stagger: { each: 0.15, from: "random" }
     });
 
-    // Kertas note goyang
+    // Efek gerakan halus untuk setiap lembar kertas memo
     gsap.to(".sticky-note-1", { y: -5, rotation: 1.5, duration: 2.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0 });
     gsap.to(".sticky-note-2", { y: 4, rotation: -2, duration: 2.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
     gsap.to(".sticky-note-3", { y: -6, rotation: 2, duration: 2.0, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.0 });
     gsap.to(".sticky-note-4", { y: 5, rotation: -1.5, duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.5 });
 
-    // Efek parallax pas di-scroll
+    // Efek pergerakan kedalaman (parallax) saat halaman di-scroll
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -273,10 +273,15 @@ export function Validator() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (result) {
+      setResult(null);
+      setForm(empty);
+      return;
+    }
     const text = `${form.idea} ${form.problem}`.toLowerCase();
     const o: Outcome = /sampah|bank sampah|daur/.test(text)
       ? "gagal"
-    : /belajar|baca|les|anak|literasi/.test(text)
+      : /belajar|baca|les|anak|literasi/.test(text)
         ? "berhasil"
         : "pionir";
     setForm(form);
@@ -289,7 +294,7 @@ export function Validator() {
       className="relative overflow-hidden w-full min-h-screen pt-10 bg-[#7dd3fc]"
       style={{ paddingBottom: '0px', marginBottom: '0px' }}
     >
-      {/* 1. Sky and Clouds (Matching Top Section Style) */}
+      {/* Langit dan elemen awan melayang */}
       <div className="absolute inset-0 pointer-events-none parallax-clouds" style={{ zIndex: 0 }}>
         <div className="absolute top-[8%] left-[10%] opacity-85 w-56">
           <svg viewBox="0 0 280 90" fill="white">
@@ -310,8 +315,8 @@ export function Validator() {
 
 
 
-      {/* 3. Midground Hills */}
-      <div className="absolute left-0 w-full pointer-events-none parallax-hills" style={{ bottom: '10vh', height: '35vh', zIndex: 10 }}>
+      {/* Bukitan latar tengah */}
+      <div className="absolute left-0 w-full pointer-events-none parallax-hills" style={{ bottom: '0px', height: '35vh', zIndex: 10 }}>
         <svg className="absolute bottom-0 left-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 300">
           <path fill="#2ECC71" d="M0,200 C400,50 800,280 1440,120 L1440,300 L0,300 Z" />
         </svg>
@@ -323,7 +328,7 @@ export function Validator() {
         </svg>
       </div>
 
-      {/* 4. The Picnic Blanket (3D Perspective) */}
+      {/* Tikar piknik dengan perspektif 3D */}
       <div className="absolute left-0 w-full flex justify-center parallax-blanket overflow-hidden pointer-events-none" style={{ bottom: '0px', height: '25vh', zIndex: 20, perspective: '1000px' }}>
         <div
           className="w-[120%] h-full origin-bottom"
@@ -342,10 +347,10 @@ export function Validator() {
         />
       </div>
 
-      {/* ── CORKBOARD CONTAINER ─────────────────────────────────────────── */}
-      <div className="relative w-full max-w-5xl px-4 mt-20 mb-[10vh] mx-auto flex flex-col items-center" style={{ zIndex: 50 }}>
+      {/* Kontainer papan gabus utama */}
+      <div className="relative w-full max-w-5xl px-4 mt-20 mb-[10vh] mx-auto flex flex-col items-center" style={{ zIndex: 30 }}>
 
-        {/* Section label + heading */}
+        {/* Label section dan judul utama */}
         <div className="flex justify-center mb-8">
           <SectionLabel>Form validasi</SectionLabel>
         </div>
@@ -358,23 +363,23 @@ export function Validator() {
           </p>
         </div>
 
-        {/* The Corkboard */}
+        {/* Bingkai papan gabus tempat penempelan sticky note */}
         <div className="relative" ref={corkboardRef}>
           <div
-            className="relative border-[16px] border-[#8b5a2b] rounded-2xl shadow-[inset_0_0_40px_rgba(0,0,0,0.5),0_25px_50px_rgba(0,0,0,0.4)] p-6 sm:p-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-stretch"
+            className="relative border-[16px] border-[#8b5a2b] rounded-2xl shadow-[inset_0_0_40px_rgba(0,0,0,0.5),0_25px_50px_rgba(0,0,0,0.4)] p-6 sm:p-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-start"
             style={{
               backgroundColor: '#d29853',
               backgroundImage: 'radial-gradient(rgba(0,0,0,0.15) 1px, transparent 1px)',
               backgroundSize: '4px 4px',
             }}
           >
-            {/* Scrapbook Decorations */}
-            <svg className="absolute -top-4 -left-4 w-12 h-12 text-yellow-300 drop-shadow-md z-20 rotate-[-15deg]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {/* Dekorasi stiker scrapbook */}
+            <svg className="absolute -top-4 -left-4 w-12 h-12 text-yellow-300 drop-shadow-md z-20 rotate-[-15deg]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
 
-            {/* LEFT SIDE: FORM (Sticky Notes) */}
-            <form onSubmit={submit} className="flex flex-col justify-between z-10">
+            {/* Sisi kiri: Formulir berupa kumpulan kertas catatan */}
+            <form onSubmit={submit} className="flex flex-col z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Sticky Note 1 */}
+                {/* Catatan 1: Ide proker */}
                 <div className="col-span-1 sm:col-span-2 sticky-note-1">
                   <label className="block group relative transition-transform duration-300 hover:scale-105 hover:z-30 rotate-[-2deg]">
                     <PushPin color="bg-red-500" className="-top-2 left-1/2 -translate-x-1/2" />
@@ -391,7 +396,7 @@ export function Validator() {
                   </label>
                 </div>
 
-                {/* Sticky Note 2 */}
+                {/* Catatan 2: Lokasi desa */}
                 <div className="sticky-note-2">
                   <label className="block group relative transition-transform duration-300 hover:scale-105 hover:z-30 rotate-[3deg]">
                     <PushPin color="bg-blue-500" className="-top-2 left-4" />
@@ -407,7 +412,7 @@ export function Validator() {
                   </label>
                 </div>
 
-                {/* Sticky Note 3 */}
+                {/* Catatan 3: Anggaran budget */}
                 <div className="sticky-note-3">
                   <label className="block group relative transition-transform duration-300 hover:scale-105 hover:z-30 rotate-[-1deg]">
                     <PushPin color="bg-yellow-500" className="-top-2 right-4" />
@@ -423,7 +428,7 @@ export function Validator() {
                   </label>
                 </div>
 
-                {/* Sticky Note 4 */}
+                {/* Catatan 4: Masalah utama */}
                 <div className="col-span-1 sm:col-span-2 sticky-note-4">
                   <label className="block group relative transition-transform duration-300 hover:scale-105 hover:z-30 rotate-[1deg]">
                     <PushPin color="bg-green-500" className="-top-2 left-1/2 -translate-x-1/2" />
@@ -440,11 +445,11 @@ export function Validator() {
                 </div>
               </div>
 
-              {/* Action Area */}
+              {/* Area tombol aksi dan skenario cepat */}
               <div className="mt-8 bg-white p-5 shadow-[2px_4px_10px_rgba(0,0,0,0.2)] rotate-[-1deg] relative z-20">
                 <Tape className="-top-2 left-1/2 -translate-x-1/2" />
                 <button type="submit" className="relative w-full inline-flex items-center justify-center rounded-xl bg-slate-800 px-6 py-4 font-display text-xl font-bold text-white shadow-[0_6px_0_#334155] transition-all hover:-translate-y-1 hover:shadow-[0_10px_0_#334155] active:translate-y-2 active:shadow-none">
-                  Uji Coba Sekarang
+                  {result ? "Uji Coba Data Lain" : "Uji Coba Sekarang"}
                 </button>
                 <div className="mt-6 border-t-2 border-dashed border-slate-200 pt-4 text-center">
                   <p className="text-xs font-bold tracking-[0.1em] uppercase text-slate-500 mb-3">
@@ -466,7 +471,7 @@ export function Validator() {
               </div>
             </form>
 
-            {/* RIGHT SIDE: RADAR / RESULT */}
+            {/* Sisi kanan: Cetak biru lembar hasil validasi */}
             <div className="h-full z-10 relative group perspective-1000">
               <div className="transition-transform duration-500 rotate-[1deg] hover:rotate-0 hover:z-30 h-full">
                 <PushPin color="bg-slate-800" className="-top-2 -left-2" />
@@ -497,9 +502,6 @@ export function Validator() {
                         <Tag tone={toneMap[result.outcome].chip}>
                           {result.outcome === "pionir" ? "Belum ada data" : result.outcome}
                         </Tag>
-                        <span className="rounded bg-slate-800 text-white px-2 py-1 text-xs font-bold shadow-sm font-mono">
-                          MOCK_DATA.XML
-                        </span>
                       </div>
                       <h3 className="mt-6 font-display text-3xl font-extrabold text-slate-900 leading-tight">{result.headline}</h3>
                       <p className="mt-3 text-base text-slate-700 font-medium leading-relaxed font-handwriting text-lg">{result.summary}</p>
@@ -549,7 +551,7 @@ export function Validator() {
                           <ul className="space-y-2">
                             {result.evidence.map((e) => (
                               <li key={e} className="flex gap-3 text-sm font-medium text-slate-700">
-                                <span className="font-bold text-slate-400">â†’</span>
+                                <span className="font-bold text-slate-400">•</span>
                                 <span className="leading-relaxed font-handwriting text-md">{e}</span>
                               </li>
                             ))}

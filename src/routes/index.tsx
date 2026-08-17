@@ -1,21 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useReveal } from "@/components/pk/useReveal";
-import { CaraKerja, Hero, Masalah, Nav } from "@/components/pk/Top";
-import { Validator } from "@/components/pk/Validator";
-import { Footer, Kontak, Tentang } from "@/components/pk/Bottom";
-import FeatureShowcase from "@/components/pk/FeatureShowcase";
-import FAQSection from "@/components/pk/FAQ";
+import { useReveal } from "@/hooks";
+import {
+  Nav,
+  Hero,
+  Masalah,
+  CaraKerja,
+  Validator,
+  FeatureShowcase,
+  FAQSection,
+  Kontak,
+  Footer,
+} from "@/components/pk";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ProkerKita — Validasi Ide Proker KKN Berbasis Preseden" },
+      { title: "ProkerKita" },
       {
         name: "description",
         content:
           "Cek apakah ide proker KKN kamu pernah dicoba di desa lain, berhasil atau gagal, plus rekomendasi alternatif dan repository laporan KKN.",
       },
-      { property: "og:title", content: "ProkerKita — Validasi Ide Proker KKN" },
+      { property: "og:title", content: "ProkerKita" },
       {
         property: "og:description",
         content:
